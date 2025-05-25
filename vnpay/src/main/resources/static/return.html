@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kết quả thanh toán</title>
+</head>
+<body>
+    <h1>Kết quả giao dịch</h1>
+    <p id="message">Đang xác minh giao dịch...</p>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const responseCode = urlParams.get("vnp_ResponseCode");
+        const amount = urlParams.get("vnp_Amount") / 100;
+        const txnRef = urlParams.get("vnp_TxnRef");
+
+        let message;
+        if (responseCode === "00") {
+            message = `🎉 Giao dịch thành công!<br> Mã đơn hàng: ${txnRef}<br> Số tiền: ${amount.toLocaleString('vi-VN')} VND`;
+        } else {
+            message = `❌ Giao dịch thất bại (Mã lỗi: ${responseCode})<br> Mã đơn hàng: ${txnRef}`;
+        }
+
+        document.getElementById("message").innerHTML = message;
+    </script>
+</body>
+</html>
